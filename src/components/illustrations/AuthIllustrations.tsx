@@ -7,8 +7,8 @@ function DecorDots() {
   return (
     <>
       <View style={[styles.dot, { top: 18, right: 30, backgroundColor: colors.red }]} />
-      <View style={[styles.dot, { bottom: 26, left: 24, width: 10, height: 10, backgroundColor: colors.blue }]} />
-      <View style={[styles.dotS, { top: 40, left: 30, backgroundColor: colors.orange }]} />
+      <View style={[styles.dot, { bottom: 26, left: 24, width: 10, height: 10, backgroundColor: colors.orange }]} />
+      <View style={[styles.dotS, { top: 40, left: 30, backgroundColor: colors.green }]} />
       <View style={[styles.dotS, { bottom: 40, right: 36, backgroundColor: colors.blue }]} />
     </>
   );
@@ -18,7 +18,9 @@ export function LockIllustration() {
   return (
     <View style={styles.circle}>
       <DecorDots />
-      <Ionicons name="lock-closed" size={40} color={colors.primary} />
+      <View style={styles.lockBox}>
+        <Ionicons name="lock-closed" size={34} color={colors.white} />
+      </View>
     </View>
   );
 }
@@ -50,7 +52,8 @@ export function SuccessIllustration() {
 }
 
 const styles = StyleSheet.create({
-  circle: { alignSelf: 'center', width: 150, height: 150, borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.16)', alignItems: 'center', justifyContent: 'center', marginVertical: 22, overflow: 'visible' },
+  circle: { alignSelf: 'center', width: 150, height: 150, borderRadius: 999, backgroundColor: colors.lavender, alignItems: 'center', justifyContent: 'center', marginVertical: 18, overflow: 'visible' },
+  lockBox: { width: 64, height: 64, borderRadius: 18, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' },
   dot: { position: 'absolute', width: 14, height: 14, borderRadius: 999 },
   dotS: { position: 'absolute', width: 8, height: 8, borderRadius: 999 },
   phone: { width: 56, height: 92, borderRadius: 12, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center', borderWidth: 3, borderColor: colors.primary },

@@ -4,12 +4,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, radius } from '../../theme';
 
 export function Field({
-  value, onChangeText, placeholder, secure, onToggleSecure, keyboardType, hideSystemKeyboard,
+  value, onChangeText, placeholder, secure, onToggleSecure, keyboardType, hideSystemKeyboard, onFocus,
 }: {
   value: string; onChangeText: (t: string) => void; placeholder: string;
   secure?: boolean; onToggleSecure?: () => void;
   keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
-  hideSystemKeyboard?: boolean;          // <-- НОВОЕ
+  hideSystemKeyboard?: boolean;
+  onFocus?: () => void;
 }) {
   return (
     <View style={styles.wrap}>
@@ -21,8 +22,10 @@ export function Field({
         placeholderTextColor={colors.textMute}
         secureTextEntry={secure}
         keyboardType={keyboardType}
-        showSoftInputOnFocus={!hideSystemKeyboard}   // <-- ключевой фикс: системная клава не всплывает
+        showSoftInputOnFocus={!hideSystemKeyboard}
         selectTextOnFocus={false}
+        onFocus={onFocus}
+        autoCapitalize="none"
       />
       {onToggleSecure && (
         <TouchableOpacity style={styles.eye} onPress={onToggleSecure}>

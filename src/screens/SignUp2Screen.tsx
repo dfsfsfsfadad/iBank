@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { ScreenShell } from '../components/layout';
-import { TopBar, Field, SelectField, Checkbox, PrimaryButton } from '../components/ui';
+import { TopBar, Field, Checkbox, PrimaryButton } from '../components/ui';
 import { PhoneIllustration } from '../components/illustrations';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
 export function SignUp2Screen() {
   const { navigate } = useNavigation();
-  const [email, setEmail] = useState('email@website.design');
-  const [phone, setPhone] = useState('(+44) 322448452');
+  const [name, setName] = useState('capicreativedesign');
+  const [phone, setPhone] = useState('(+84) 332249402');
+  const [pass, setPass] = useState('password12');
+  const [hide, setHide] = useState(true);
   const [agree, setAgree] = useState(true);
+  const active = agree && name.length > 0 && phone.length > 0 && pass.length > 0;
 
   return (
     <ScreenShell purple>
       <TopBar title="Sign up" onBack={() => navigate('signup1')} />
-      <View style={styles.head}>
+      <View style={styles.sheet}>
         <Text style={styles.title}>Welcome to us,</Text>
-        <Text style={styles.sub}>Hello there, create new account</Text>
-      </View>
-      <PhoneIllustration />
-      <View style={styles.form}>
-        <Field value={email} onChangeText={setEmail} placeholder="email@website.design" keyboardType="email-address" />
-        <Field value={phone} onChangeText={setPhone} placeholder="(+44) 322448452" keyboardType="phone-pad" />
-        <SelectField value="🇬  United Kingdom" placeholder="Select your country" />
+        <Text style={styles.sub}>Hello there, create New account</Text>
+        <PhoneIllustration />
+        <Field value={name} onChangeText={setName} placeholder="Name" />
+        <Field value={phone} onChangeText={setPhone} placeholder="(+84) 332249402" keyboardType="phone-pad" />
+        <Field value={pass} onChangeText={setPass} placeholder="Password" secure={hide} onToggleSecure={() => setHide(v => !v)} />
         <Checkbox checked={agree} onToggle={() => setAgree(v => !v)}>
-          By enrolling an account your agree to our <Text style={{ color: colors.primary, fontWeight: '600' }}>Term and Conditions</Text>
+          By creating an account your aggree to our <Text style={styles.terms}>Term and Conditions</Text>
         </Checkbox>
-        <PrimaryButton label="Sign Up" active={agree} onPress={() => navigate('home')} />
+        <PrimaryButton label="Sign up" active={active} onPress={() => navigate('home')} />
         <View style={styles.foot}>
           <Text style={styles.footText}>Have an account?  </Text>
           <TouchableOpacity onPress={() => navigate('signin')}><Text style={styles.footLink}>Sign In</Text></TouchableOpacity>
@@ -38,10 +39,10 @@ export function SignUp2Screen() {
 }
 
 const styles = StyleSheet.create({
-  head: { paddingHorizontal: 24, marginTop: 18 },
-  title: { color: colors.white, fontSize: 26, fontWeight: '800' },
-  sub: { color: 'rgba(255,255,255,0.85)', fontSize: 13, marginTop: 4 },
-  form: { backgroundColor: colors.bg, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 24, paddingTop: 26, paddingBottom: 30, flex: 1 },
+  sheet: { flex: 1, marginTop: 12, backgroundColor: colors.bg, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 24, paddingTop: 26, paddingBottom: 30 },
+  title: { color: colors.primary, fontSize: 24, fontWeight: '800' },
+  sub: { color: colors.text, fontSize: 13, marginTop: 4 },
+  terms: { color: colors.primary, fontWeight: '600' },
   foot: { flexDirection: 'row', justifyContent: 'center', marginTop: 14 },
   footText: { color: colors.textSub, fontSize: 13 },
   footLink: { color: colors.primary, fontSize: 13, fontWeight: '700' },
