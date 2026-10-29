@@ -21,7 +21,7 @@ export function SignInScreen() {
         <Text style={styles.title}>Welcome Back</Text>
         <Text style={styles.sub}>Hello there, sign in to continue</Text>
         <LockIllustration />
-        <Field value={login} onChangeText={setLogin} placeholder="Test Input" />
+        <Field value={login} onChangeText={setLogin} placeholder="Login" />
         <Field value={pass} onChangeText={setPass} placeholder="Password" secure={hide} onToggleSecure={() => setHide(v => !v)} />
         <TouchableOpacity style={styles.linkRight} onPress={() => navigate('forgot1')}>
           <Text style={styles.link}>Forgot your password ?</Text>
