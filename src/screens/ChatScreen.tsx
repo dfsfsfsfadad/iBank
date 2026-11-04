@@ -22,7 +22,7 @@ export function ChatScreen() {
   const { navigate } = useNavigation();
   const [items, setItems] = useState<ChatItem[]>(CHAT_INITIAL);
   const [text, setText] = useState('');
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<React.ComponentRef<typeof ScrollView>>(null);
   const canSend = text.trim().length > 0;
 
   useEffect(() => {
