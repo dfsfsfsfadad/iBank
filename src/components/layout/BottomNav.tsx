@@ -8,8 +8,8 @@ export type NavTab = 'home' | 'search' | 'mail' | 'settings';
 const TABS: { id: NavTab; icon: keyof typeof Ionicons.glyphMap; label: string }[] = [
   { id: 'home', icon: 'home', label: 'Home' },
   { id: 'search', icon: 'search', label: 'Search' },
-  { id: 'mail', icon: 'mail-outline', label: 'Mail' },
-  { id: 'settings', icon: 'settings-outline', label: 'Settings' },
+  { id: 'mail', icon: 'mail-outline', label: 'Message' },
+  { id: 'settings', icon: 'settings-outline', label: 'Setting' },
 ];
 
 export function BottomNav({ active, onChange }: { active: NavTab; onChange: (t: NavTab) => void }) {

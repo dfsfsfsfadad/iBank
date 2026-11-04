@@ -8,6 +8,7 @@ import {
   Exchange1Screen, Exchange2Screen, Exchange2ModalScreen,
   Transfer1Screen, Transfer2Screen, Transfer3Screen, Transfer4Screen,
   PayBill1Screen, PayBill2Screen, PayBill3Screen,
+  MessageScreen, ChatScreen, SettingScreen, AppInfoScreen, SettingPasswordScreen,
 } from '../screens';
 
 export function RootNavigator() {
@@ -38,5 +39,10 @@ export function RootNavigator() {
     case 'paybill1': return <PayBill1Screen />;
     case 'paybill2': return <PayBill2Screen />;
     case 'paybill3': return <PayBill3Screen />;
+    case 'message': return <MessageScreen />;
+    case 'chat': return <ChatScreen />;
+    case 'setting': return <SettingScreen />;
+    case 'appinfo': return <AppInfoScreen />;
+    case 'settingpw': return <SettingPasswordScreen />;
   }
 }

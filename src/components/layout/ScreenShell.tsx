@@ -4,16 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 
 export function ScreenShell({
-  children, purple, keyboard,
+  children, purple, keyboard, scrollRef,
 }: {
-  children: React.ReactNode; purple?: boolean; keyboard?: React.ReactNode;
+  children: React.ReactNode; purple?: boolean; keyboard?: React.ReactNode; scrollRef?: React.Ref<ScrollView>;
 }) {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={[styles.shell, { backgroundColor: purple ? colors.primary : colors.bg }]}>
       <StatusBar barStyle={purple ? 'light-content' : 'dark-content'} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
+          <ScrollView ref={scrollRef} style={{ flex: 1 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
             {children}
           </ScrollView>
           {/* клавиатура вне скролла = приклеена к низу, как в макете */}

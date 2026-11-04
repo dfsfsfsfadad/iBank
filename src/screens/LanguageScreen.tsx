@@ -17,7 +17,7 @@ export function LanguageScreen() {
   const [sel, setSel] = useState(2);
   return (
     <ScreenShell>
-      <TopBar title="Language" variant="white" onBack={() => navigate('home')} />
+      <TopBar title="Language" variant="white" onBack={() => navigate('setting')} />
       <View style={styles.list}>
         {LANGS.map((l, i) => (
           <TouchableOpacity key={i} style={styles.row} activeOpacity={0.7} onPress={() => setSel(i)}>

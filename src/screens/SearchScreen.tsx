@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenShell, BottomNav } from '../components/layout';
-import type { NavTab } from '../components/layout/BottomNav';
 import { TopBar } from '../components/ui';
 import { useNavigation } from '../navigation/NavigationContext';
+import { useTabNavigate } from '../navigation/useTabNavigate';
 import type { Route } from '../navigation/types';
 import { colors } from '../theme';
 
@@ -17,15 +17,12 @@ const ITEMS: Item[] = [
   { route: 'branch',       title: 'Branch',        sub: 'Search for branch',        icon: 'location-outline',        color: colors.primary },
   { route: 'interest',     title: 'Interest rate', sub: 'Search for interest rate', icon: 'trending-up-outline',     color: colors.orange },
   { route: 'exchangeRate', title: 'Exchange rate', sub: 'Search for exchange rate', icon: 'cash-outline',            color: colors.green },
-  { route: 'exchange1',     title: 'Exchange',      sub: 'Exchange amount of money', icon: 'swap-horizontal-outline', color: colors.red },
+  { route: 'exchange1',    title: 'Exchange',      sub: 'Exchange amount of money', icon: 'swap-horizontal-outline', color: colors.red },
 ];
 
 export function SearchScreen() {
   const { navigate } = useNavigation();
-  const go = (t: NavTab) => {
-    if (t === 'home') navigate('home');
-    else if (t === 'settings') navigate('language');
-  };
+  const go = useTabNavigate();
 
   return (
     <ScreenShell keyboard={<BottomNav active="search" onChange={go} />}>

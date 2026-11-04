@@ -23,3 +23,8 @@ export * from './Transfer4Screen';
 export * from './PayBill1Screen';
 export * from './PayBill2Screen';
 export * from './PayBill3Screen';
+export * from './MessageScreen';
+export * from './ChatScreen';
+export * from './SettingScreen';
+export * from './AppInfoScreen';
+export * from './SettingPasswordScreen';

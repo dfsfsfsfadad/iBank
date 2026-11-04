@@ -22,7 +22,8 @@ export function HomeScreen() {
 
   const onTab = (id: TabId) => {
     if (id === 'search') return navigate('search');
-    if (id === 'settings') return navigate('language');
+    if (id === 'mail') return navigate('message');
+    if (id === 'settings') return navigate('setting');
     setTab(id);
   };
 
@@ -35,7 +36,7 @@ export function HomeScreen() {
     <View style={styles.root}>
       <SafeAreaView edges={['top']} style={{ backgroundColor: 'transparent' }}>
         <LinearGradient colors={[colors.primary, colors.primaryDark]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.header}>
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="light-content"/>
           <View style={styles.headerTop}>
             <View style={styles.avatar}><Ionicons name="person" size={20} color={colors.white} /></View>
             <View style={{ flex: 1, marginLeft: 12 }}><Text style={styles.hi}>Hi, Push Puttichai</Text></View>

@@ -5,4 +5,5 @@ export type Route =
   | 'search' | 'branch' | 'interest' | 'exchangeRate' | 'language'
   | 'exchange1' | 'exchange2' | 'exchange2Modal'
   | 'transfer1' | 'transfer2' | 'transfer3' | 'transfer4'
-  | 'paybill1' | 'paybill2' | 'paybill3';
+  | 'paybill1' | 'paybill2' | 'paybill3'
+  | 'message' | 'chat' | 'setting' | 'appinfo' | 'settingpw';
