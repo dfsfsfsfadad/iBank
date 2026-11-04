@@ -2,6 +2,8 @@ export * from './TopBar';
 export * from './Field';
 export * from './ReadField';
 export * from './Dropdown';
+export * from './Picker';
+export * from './OtpRow';
 export * from './SelectField';
 export * from './Checkbox';
 export * from './PrimaryButton';

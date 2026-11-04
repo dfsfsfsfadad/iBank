@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Field, Checkbox, PrimaryButton, Card } from '../ui';
+import { Field, Checkbox, PrimaryButton, Card, PickField, PickerModal } from '../ui';
+import { BANKS, BRANCHES } from '../../data/banks';
 import { colors, radius } from '../../theme';
 
 export type TransferValues = {
   acc: number | null; tx: number | null; benef: string | null;
   name: string; card: string; amount: string; content: string; save: boolean;
+  bank: string | null; branch: string | null; // «басқа банкке аудару» үшін
 };
 
 export const EMPTY_TRANSFER: TransferValues = {
   acc: null, tx: null, benef: null, name: '', card: '', amount: '', content: '', save: false,
+  bank: null, branch: null,
 };
 
 export const FILLED_TRANSFER: TransferValues = {
   acc: 0, tx: 0, benef: 'emma', name: 'Capi Creative Design', card: '0123456789109',
   amount: '1000', content: '1000', save: true,
+  bank: null, branch: null,
 };
 
 // Transfer #1 → Transfer #2 арасында мәндерді тасымалдайды
@@ -63,9 +67,12 @@ export function TransferForm({ initial, submitLabel, onSubmit }: {
 }) {
   const [v, setV] = useState<TransferValues>(initial);
   const [accOpen, setAccOpen] = useState(false);
+  const [picker, setPicker] = useState<'bank' | 'branch' | null>(null);
   const set = (p: Partial<TransferValues>) => setV(prev => ({ ...prev, ...p }));
 
-  const active = v.acc !== null && v.tx !== null && !!v.name && !!v.card && !!v.amount && !!v.content;
+  const another = v.tx === 2; // Transfer to another bank
+  const active = v.acc !== null && v.tx !== null && !!v.name && !!v.card && !!v.amount && !!v.content
+    && (!another || (!!v.bank && !!v.branch));
   const wordsText = amountWords(v.amount);
 
   const pickBenef = (id: string) => {
@@ -114,26 +121,53 @@ export function TransferForm({ initial, submitLabel, onSubmit }: {
           <TouchableOpacity style={styles.add} activeOpacity={0.8}>
             <Ionicons name="add" size={26} color={colors.textMute} />
           </TouchableOpacity>
-          {BENEFICIARIES.map(b => (
-            <TouchableOpacity key={b.id} style={[styles.benef, v.benef === b.id && styles.benefOn]} onPress={() => pickBenef(b.id)} activeOpacity={0.8}>
-              <View style={[styles.avatar, { backgroundColor: b.color + '33' }]}>
-                <Ionicons name="person" size={22} color={b.color} />
-              </View>
-              <Text style={styles.benefName}>{b.name}</Text>
-            </TouchableOpacity>
-          ))}
+          {BENEFICIARIES.map(b => {
+            const on = v.benef === b.id;
+            return (
+              <TouchableOpacity key={b.id} style={[styles.benef, on && styles.benefOn]} onPress={() => pickBenef(b.id)} activeOpacity={0.8}>
+                <View style={[styles.avatar, { backgroundColor: on ? 'rgba(255,255,255,0.25)' : b.color + '33' }]}>
+                  <Ionicons name="person" size={22} color={on ? colors.white : b.color} />
+                </View>
+                <Text style={[styles.benefName, on && { color: colors.white }]}>{b.name}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
 
       <Card>
-        <Field value={v.name} onChangeText={t => set({ name: t })} placeholder="Name" />
-        <Field value={v.card} onChangeText={t => set({ card: t })} placeholder="Card number" keyboardType="numeric" />
-        <Field value={v.amount} onChangeText={t => set({ amount: t })} placeholder="Amount" keyboardType="numeric" />
+        {another && (
+          <>
+            <PickField label="Choose bank" value={v.bank} placeholder="Choose bank" onPress={() => setPicker('bank')} />
+            <PickField label="Choose branch" value={v.branch} placeholder="Choose branch" onPress={() => setPicker('branch')} />
+          </>
+        )}
+        <Field label={another ? 'Name' : undefined} value={v.name} onChangeText={t => set({ name: t })} placeholder="Name" />
+        <Field label={another ? 'Card number' : undefined} value={v.card} onChangeText={t => set({ card: t })} placeholder="Card number" keyboardType="numeric" />
+        <Field label={another ? 'Amount' : undefined} value={v.amount} onChangeText={t => set({ amount: t })} placeholder="Amount" keyboardType="numeric" />
         {!!wordsText && <Text style={styles.words}>{wordsText}</Text>}
-        <Field value={v.content} onChangeText={t => set({ content: t })} placeholder="Content" />
+        <Field label={another ? 'Content' : undefined} value={v.content} onChangeText={t => set({ content: t })} placeholder="Content" />
         <Checkbox checked={v.save} onToggle={() => set({ save: !v.save })}>Save to directory of beneficiary</Checkbox>
         <PrimaryButton label={submitLabel} active={active} onPress={() => onSubmit(v)} />
       </Card>
+
+      <PickerModal
+        visible={picker === 'bank'}
+        title="Choose beneficiary bank"
+        options={BANKS}
+        value={v.bank}
+        searchable
+        onSelect={b => { set({ bank: b }); setPicker(null); }}
+        onClose={() => setPicker(null)}
+      />
+      <PickerModal
+        visible={picker === 'branch'}
+        title="Choose branch"
+        options={BRANCHES}
+        value={v.branch}
+        onSelect={b => { set({ branch: b }); setPicker(null); }}
+        onClose={() => setPicker(null)}
+      />
     </>
   );
 }
@@ -154,7 +188,7 @@ const styles = StyleSheet.create({
   benefRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 10 },
   add: { width: 60, height: 70, borderRadius: 16, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center', shadowColor: '#2A2350', shadowOpacity: 0.08, shadowRadius: 8, elevation: 2 },
   benef: { width: 70, height: 70, borderRadius: 16, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center', gap: 4, borderWidth: 1.5, borderColor: 'transparent', shadowColor: '#2A2350', shadowOpacity: 0.08, shadowRadius: 8, elevation: 2 },
-  benefOn: { borderColor: colors.primary },
+  benefOn: { backgroundColor: colors.primary, borderColor: colors.primary },
   avatar: { width: 36, height: 36, borderRadius: 999, alignItems: 'center', justifyContent: 'center' },
   benefName: { color: colors.text, fontSize: 10.5 },
   words: { color: colors.primary, fontSize: 11, marginTop: -8, marginBottom: 12 },

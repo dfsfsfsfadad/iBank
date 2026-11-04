@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ScreenShell } from '../components/layout';
-import { TopBar, PrimaryButton, ReadField } from '../components/ui';
+import { TopBar, PrimaryButton, ReadField, OtpRow } from '../components/ui';
 import { BiometricVerify, TouchIdDialog } from '../components/transfer/BiometricVerify';
 import { ACCOUNTS, transferStore } from '../components/transfer/TransferForm';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
 const FEE = '10$';
-const BENEFICIARY_BANK = 'US bank';
 
-// Transfer #5 — Confirm #4…#7
-//  • карта нөмірі / сол банк → Touch ID (Confirm #4, #5)
-//  • басқа банк (tx = 2)     → Face ID  (Confirm #6, #7)
+// Transfer — Confirm
+//  • карта нөмірі / сол банк → Touch ID
+//  • басқа банк (tx = 2)     → Beneficiary bank + OTP
 export function Transfer3Screen() {
   const { navigate } = useNavigation();
   const v = transferStore.values;
-  const face = v.tx === 2;
+  const otpMode = v.tx === 2;
   const [verified, setVerified] = useState(false);
   const [dialog, setDialog] = useState(false);
+  const [otp, setOtp] = useState('');
 
   const from = v.acc === null ? '' : `**** **** ${ACCOUNTS[v.acc].label.slice(-4)}`;
-  const onBio = () => (face ? setVerified(true) : setDialog(true));
+  const ready = otpMode ? otp.length > 0 : verified;
 
   return (
     <ScreenShell
       keyboard={
         <View style={styles.dock}>
-          <PrimaryButton label="Confirm" active={verified} onPress={() => navigate('transfer4')} />
+          <PrimaryButton label="Confirm" active={ready} onPress={() => navigate('transfer4')} />
         </View>
       }
     >
@@ -36,12 +36,20 @@ export function Transfer3Screen() {
         <Text style={styles.heading}>Confirm transaction information</Text>
         <ReadField label="From" value={from} />
         <ReadField label="To" value={v.name} />
-        {face && <ReadField label="Beneficiary bank" value={BENEFICIARY_BANK} />}
+        {otpMode && <ReadField label="Beneficiary bank" value={v.bank ?? ''} />}
         <ReadField label="Card number" value={v.card} />
         <ReadField label="Transaction fee" value={FEE} />
         <ReadField label="Content" value={v.content} />
         <ReadField label="Amount" value={`$${v.amount}`} />
-        <BiometricVerify kind={face ? 'face' : 'touch'} verified={verified} onPress={onBio} />
+        {otpMode ? (
+          <View style={styles.otp}>
+            <Text style={styles.otpLabel}>Get OTP to verify transaction</Text>
+            {/* Макет: нақты SMS жоқ, "Get OTP" кодты автоматты түрде толтырады */}
+            <OtpRow value={otp} onChangeText={setOtp} canRequest onRequest={() => setOtp('23798')} />
+          </View>
+        ) : (
+          <BiometricVerify kind="touch" verified={verified} onPress={() => setDialog(true)} />
+        )}
       </View>
       <TouchIdDialog
         visible={dialog}
@@ -55,5 +63,7 @@ export function Transfer3Screen() {
 const styles = StyleSheet.create({
   body: { paddingHorizontal: 24, paddingTop: 14 },
   heading: { color: colors.textSub, fontSize: 11, marginBottom: 14 },
+  otp: { marginTop: 6 },
+  otpLabel: { color: colors.textSub, fontSize: 11, marginBottom: 8 },
   dock: { paddingHorizontal: 24, paddingTop: 8, paddingBottom: 20, backgroundColor: colors.bg },
 });
