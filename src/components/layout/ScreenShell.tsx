@@ -3,10 +3,13 @@ import { View, ScrollView, StatusBar, KeyboardAvoidingView, Platform, StyleSheet
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 
+type ScrollViewRef = React.ComponentRef<typeof ScrollView>;
+
 export function ScreenShell({
   children, purple, keyboard, scrollRef,
 }: {
-  children: React.ReactNode; purple?: boolean; keyboard?: React.ReactNode; scrollRef?: React.Ref<ScrollView>;
+  children: React.ReactNode; purple?: boolean; keyboard?: React.ReactNode;
+  scrollRef?: React.Ref<ScrollViewRef>;
 }) {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={[styles.shell, { backgroundColor: purple ? colors.primary : colors.bg }]}>
