@@ -6,7 +6,6 @@ import { ExchangeForm } from '../components/exchange/ExchangeForm';
 import { exchangeStore } from '../data/exchange';
 import { useNavigation } from '../navigation/NavigationContext';
 
-// Exchange #2 — толтырылған күй
 export function Exchange2Screen() {
   const { navigate } = useNavigation();
   const [amount, setAmount] = useState(exchangeStore.amount || '1000');

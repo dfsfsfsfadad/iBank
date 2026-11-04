@@ -4,4 +4,5 @@ export type Route =
   | 'changepw1' | 'changepw2' | 'home'
   | 'search' | 'branch' | 'interest' | 'exchangeRate' | 'language'
   | 'exchange1' | 'exchange2' | 'exchange2Modal'
-  | 'transfer1' | 'transfer2';
+  | 'transfer1' | 'transfer2' | 'transfer3' | 'transfer4'
+  | 'paybill1' | 'paybill2' | 'paybill3';

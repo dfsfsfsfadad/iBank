@@ -6,7 +6,8 @@ import {
   ChangePassword1Screen, ChangePassword2Screen, HomeScreen,
   SearchScreen, BranchScreen, InterestRateScreen, ExchangeRateScreen, LanguageScreen,
   Exchange1Screen, Exchange2Screen, Exchange2ModalScreen,
-  Transfer1Screen, Transfer2Screen,
+  Transfer1Screen, Transfer2Screen, Transfer3Screen, Transfer4Screen,
+  PayBill1Screen, PayBill2Screen, PayBill3Screen,
 } from '../screens';
 
 export function RootNavigator() {
@@ -32,5 +33,10 @@ export function RootNavigator() {
     case 'exchange2Modal': return <Exchange2ModalScreen />;
     case 'transfer1': return <Transfer1Screen />;
     case 'transfer2': return <Transfer2Screen />;
+    case 'transfer3': return <Transfer3Screen />;
+    case 'transfer4': return <Transfer4Screen />;
+    case 'paybill1': return <PayBill1Screen />;
+    case 'paybill2': return <PayBill2Screen />;
+    case 'paybill3': return <PayBill3Screen />;
   }
 }

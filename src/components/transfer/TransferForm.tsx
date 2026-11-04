@@ -21,7 +21,7 @@ export const FILLED_TRANSFER: TransferValues = {
 // Transfer #1 → Transfer #2 арасында мәндерді тасымалдайды
 export const transferStore: { values: TransferValues } = { values: FILLED_TRANSFER };
 
-const ACCOUNTS = [
+export const ACCOUNTS = [
   { label: 'VISA **** **** **** 1234', balance: '10,000$' },
   { label: 'MASTERCARD **** **** **** 5678', balance: '2,350$' },
 ];

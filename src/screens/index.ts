@@ -18,3 +18,8 @@ export * from './Exchange2Screen';
 export * from './Exchange2ModalScreen';
 export * from './Transfer1Screen';
 export * from './Transfer2Screen';
+export * from './Transfer3Screen';
+export * from './Transfer4Screen';
+export * from './PayBill1Screen';
+export * from './PayBill2Screen';
+export * from './PayBill3Screen';

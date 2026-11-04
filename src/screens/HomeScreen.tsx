@@ -26,11 +26,16 @@ export function HomeScreen() {
     setTab(id);
   };
 
+  const onAction = (id: string) => {
+    if (id === 'transfer') navigate('transfer1');
+    else if (id === 'paybill') navigate('paybill1');
+  };
+
   return (
     <View style={styles.root}>
       <SafeAreaView edges={['top']} style={{ backgroundColor: 'transparent' }}>
         <LinearGradient colors={[colors.primary, colors.primaryDark]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.header}>
-          <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+          <StatusBar barStyle="light-content" />
           <View style={styles.headerTop}>
             <View style={styles.avatar}><Ionicons name="person" size={20} color={colors.white} /></View>
             <View style={{ flex: 1, marginLeft: 12 }}><Text style={styles.hi}>Hi, Push Puttichai</Text></View>
@@ -60,7 +65,7 @@ export function HomeScreen() {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.body}>
         <View style={styles.grid}>
           {homeActions.map(a => (
-            <TouchableOpacity key={a.id} style={styles.item} activeOpacity={0.7} onPress={() => { if (a.id === 'transfer') navigate('transfer1'); }}>
+            <TouchableOpacity key={a.id} style={styles.item} activeOpacity={0.7} onPress={() => onAction(a.id)}>
               <View style={[styles.itemIcon, { backgroundColor: a.color + '1A' }]}>
                 <Ionicons name={a.icon} size={22} color={a.color} />
               </View>

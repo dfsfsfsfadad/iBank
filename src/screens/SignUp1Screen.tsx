@@ -23,7 +23,7 @@ export function SignUp1Screen() {
         <Text style={styles.sub}>Hello there, create New account</Text>
         <PhoneIllustration />
         <Field value={name} onChangeText={setName} placeholder="Name" />
-        <Field value={inp} onChangeText={setInp} placeholder="Test Input" />
+        <Field value={inp} onChangeText={setInp} placeholder="Email" />
         <Field value={pass} onChangeText={setPass} placeholder="Password" secure={hide} onToggleSecure={() => setHide(v => !v)} />
         <Checkbox checked={agree} onToggle={() => setAgree(v => !v)}>
           By creating an account your aggree to our <Text style={styles.terms}>Term and Conditions</Text>

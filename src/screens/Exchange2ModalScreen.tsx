@@ -8,7 +8,6 @@ import { CURRENCIES, exchangeStore } from '../data/exchange';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
-// Exchange #2 (Select the currency) — валюта таңдау терезесі
 export function Exchange2ModalScreen() {
   const { navigate } = useNavigation();
   const sel = exchangeStore.currencyIdx;
