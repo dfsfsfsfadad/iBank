@@ -30,6 +30,9 @@ export function HomeScreen() {
   const onAction = (id: string) => {
     if (id === 'transfer') navigate('transfer1');
     else if (id === 'paybill') navigate('paybill1');
+    else if (id === 'details') navigate('carddetail');
+    else if (id === 'withdraw') navigate('withdraw1');
+    else if (id === 'mobile') navigate('mobile1'); 
   };
 
   return (

@@ -9,6 +9,7 @@ import {
   Transfer1Screen, Transfer2Screen, Transfer3Screen, Transfer4Screen,
   PayBill1Screen, PayBill2Screen, PayBill3Screen,
   MessageScreen, ChatScreen, SettingScreen, AppInfoScreen, SettingPasswordScreen,
+  CardDetailScreen, Withdraw1Screen, Withdraw2Screen, Mobile1Screen, Mobile2Screen,
 } from '../screens';
 
 export function RootNavigator() {
@@ -44,5 +45,10 @@ export function RootNavigator() {
     case 'setting': return <SettingScreen />;
     case 'appinfo': return <AppInfoScreen />;
     case 'settingpw': return <SettingPasswordScreen />;
+    case 'carddetail': return <CardDetailScreen />;
+    case 'withdraw1': return <Withdraw1Screen />;
+    case 'withdraw2': return <Withdraw2Screen />;
+    case 'mobile1': return <Mobile1Screen />;
+    case 'mobile2': return <Mobile2Screen />; 
   }
 }

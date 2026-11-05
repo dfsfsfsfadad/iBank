@@ -28,3 +28,8 @@ export * from './ChatScreen';
 export * from './SettingScreen';
 export * from './AppInfoScreen';
 export * from './SettingPasswordScreen';
+export * from './CardDetailScreen';
+export * from './Withdraw1Screen';
+export * from './Withdraw2Screen';
+export * from './Mobile1Screen';
+export * from './Mobile2Screen';

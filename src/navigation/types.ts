@@ -6,4 +6,5 @@ export type Route =
   | 'exchange1' | 'exchange2' | 'exchange2Modal'
   | 'transfer1' | 'transfer2' | 'transfer3' | 'transfer4'
   | 'paybill1' | 'paybill2' | 'paybill3'
-  | 'message' | 'chat' | 'setting' | 'appinfo' | 'settingpw';
+  | 'message' | 'chat' | 'setting' | 'appinfo' | 'settingpw'
+  | 'carddetail' | 'withdraw1' | 'withdraw2' | 'mobile1' | 'mobile2' ;
