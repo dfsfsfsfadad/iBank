@@ -6,7 +6,7 @@ import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
 const ROWS: [string, string][] = [
-  ['Name', 'Push Puttichoi'],
+  ['Name', 'Jonh Smith'],
   ['Card number', '**** **** 9018'],
   ['Valid from', '10/15'],
   ['Good thru', '10/20'],

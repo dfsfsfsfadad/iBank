@@ -32,7 +32,7 @@ export function HomeScreen() {
     else if (id === 'paybill') navigate('paybill1');
     else if (id === 'details') navigate('carddetail');
     else if (id === 'withdraw') navigate('withdraw1');
-    else if (id === 'mobile') navigate('mobile1'); 
+    else if (id === 'mobile') navigate('mobile1');
   };
 
   return (
@@ -42,7 +42,7 @@ export function HomeScreen() {
           <StatusBar barStyle="light-content"/>
           <View style={styles.headerTop}>
             <View style={styles.avatar}><Ionicons name="person" size={20} color={colors.white} /></View>
-            <View style={{ flex: 1, marginLeft: 12 }}><Text style={styles.hi}>Hi, Push Puttichai</Text></View>
+            <View style={{ flex: 1, marginLeft: 12 }}><Text style={styles.hi}>Hi, Jonh Smith</Text></View>
             <TouchableOpacity style={styles.iconBtn}>
               <Ionicons name="notifications-outline" size={20} color={colors.white} />
               <View style={styles.badge} />

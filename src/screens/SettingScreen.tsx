@@ -26,7 +26,7 @@ export function SettingScreen() {
       <TopBar title="Setting" onBack={() => navigate('home')} />
       <View style={styles.profile}>
         <View style={styles.avatar}><Ionicons name="person" size={40} color={colors.primary} /></View>
-        <Text style={styles.name}>Push Puttichai</Text>
+        <Text style={styles.name}>Jonh Smith</Text>
       </View>
       <View style={styles.sheet}>
         {ROWS.map(r => (

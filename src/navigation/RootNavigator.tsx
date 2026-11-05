@@ -49,6 +49,6 @@ export function RootNavigator() {
     case 'withdraw1': return <Withdraw1Screen />;
     case 'withdraw2': return <Withdraw2Screen />;
     case 'mobile1': return <Mobile1Screen />;
-    case 'mobile2': return <Mobile2Screen />; 
+    case 'mobile2': return <Mobile2Screen />;
   }
 }

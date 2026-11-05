@@ -7,4 +7,4 @@ export type Route =
   | 'transfer1' | 'transfer2' | 'transfer3' | 'transfer4'
   | 'paybill1' | 'paybill2' | 'paybill3'
   | 'message' | 'chat' | 'setting' | 'appinfo' | 'settingpw'
-  | 'carddetail' | 'withdraw1' | 'withdraw2' | 'mobile1' | 'mobile2' ;
+  | 'carddetail' | 'withdraw1' | 'withdraw2' | 'mobile1' | 'mobile2';

@@ -9,3 +9,4 @@ export * from './Checkbox';
 export * from './PrimaryButton';
 export * from './Card';
 export * from './SearchField';
+export * from './AmountGrid';
