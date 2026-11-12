@@ -36,6 +36,7 @@ export function HomeScreen() {
   else if (id === 'topup') navigate('saveOnline');
   else if (id === 'credit') navigate('creditCard');
   else if (id === 'benef') navigate('benefList');
+  else if (id === 'report') navigate('report');
 };
 
   return (

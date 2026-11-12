@@ -35,3 +35,8 @@ export const BANK_ACCOUNTS = [
   { title: 'Account 2', number: '8988 1234',      balance: '$12,000',  branch: 'New York' },
   { title: 'Account 3', number: '1900 1234 2222', balance: '$230,000', branch: 'New York' },
 ];
+// Transaction report → Detail: какую транзакцию открыть
+export const txnStore: { id: string | null } = { id: null };
+
+export const findTxn = (id: string | null) =>
+  TXN_SECTIONS.flatMap(s => s.items).find(t => t.id === id) ?? null;

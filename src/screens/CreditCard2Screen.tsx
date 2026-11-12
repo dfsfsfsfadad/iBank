@@ -20,7 +20,7 @@ export function CreditCard2Screen() {
     <ScreenShell
       keyboard={
         <View style={styles.dock}>
-          <PrimaryButton label="Pay" active={active} onPress={() => navigate('home')} />
+          <PrimaryButton label="Pay" active={active} onPress={() => navigate('creditSuccess')} />
         </View>
       }
     >

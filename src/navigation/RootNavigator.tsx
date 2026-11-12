@@ -12,7 +12,8 @@ import {
   CardDetailScreen, Withdraw1Screen, Withdraw2Screen, Mobile1Screen, Mobile2Screen,
   SaveOnline1Screen, SaveAdd1Screen, SaveAdd2Screen, SaveSuccessScreen, SaveManagementScreen,
   BeneficiaryListScreen, BeneficiaryAdd1Screen, BeneficiaryAdd2Screen, BeneficiaryDetailScreen,
-  CreditCard1Screen, CreditCard2Screen,
+  CreditCard1Screen, CreditCard2Screen,ElectricBill1Screen, ElectricBill2Screen, ElectricBill3Screen, ElectricBill4Screen,
+  CreditCardSuccessScreen, ReportScreen, TransactionDetailScreen,
 } from '../screens';
 
 export function RootNavigator() {
@@ -63,6 +64,13 @@ export function RootNavigator() {
     case 'benefAdd2': return <BeneficiaryAdd2Screen />;
     case 'benefDetail': return <BeneficiaryDetailScreen />;
     case 'creditCard': return <CreditCard1Screen />;
-    case 'creditPay': return <CreditCard2Screen />
+    case 'creditPay': return <CreditCard2Screen />;
+    case 'electric1': return <ElectricBill1Screen />;
+    case 'electric2': return <ElectricBill2Screen />;
+    case 'electric3': return <ElectricBill3Screen />;
+    case 'electric4': return <ElectricBill4Screen />;
+    case 'creditSuccess': return <CreditCardSuccessScreen />;
+    case 'report': return <ReportScreen />;
+    case 'txnDetail': return <TransactionDetailScreen />;
   }
 }

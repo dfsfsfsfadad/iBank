@@ -1,17 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenShell } from '../components/layout';
 import { TopBar } from '../components/ui';
 import { BankCard } from '../components/cards/BankCard';
 import { BalanceChart } from '../components/report/BalanceChart';
-import { CHART, TXN_SECTIONS, money } from '../data/report';
+import { CHART, TXN_SECTIONS, money, txnStore } from '../data/report';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
-// Transaction report #1–#2 (второй макет — это тот же экран, прокрученный вниз)
+// Transaction report
 export function ReportScreen() {
   const { navigate } = useNavigation();
+
+  const openTxn = (id: string) => {
+    txnStore.id = id;
+    navigate('txnDetail');
+  };
+
   return (
     <ScreenShell purple>
       <TopBar title="Transaction report" onBack={() => navigate('home')} />
@@ -33,7 +39,7 @@ export function ReportScreen() {
           <View key={s.day}>
             <Text style={styles.day}>{s.day}</Text>
             {s.items.map(t => (
-              <View key={t.id} style={styles.row}>
+              <TouchableOpacity key={t.id} style={styles.row} activeOpacity={0.7} onPress={() => openTxn(t.id)}>
                 <View style={[styles.icon, { backgroundColor: t.color }]}>
                   <Ionicons name={t.icon} size={15} color={colors.white} />
                 </View>
@@ -42,7 +48,7 @@ export function ReportScreen() {
                   <Text style={styles.status}>{t.ok ? 'Successfully' : 'Unsuccessfully'}</Text>
                 </View>
                 <Text style={[styles.amount, { color: t.amount < 0 ? colors.red : colors.primary }]}>{money(t.amount)}</Text>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         ))}

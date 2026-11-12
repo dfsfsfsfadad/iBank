@@ -4,6 +4,8 @@ import { Card } from '../ui';
 import { BILL } from '../../data/bill';
 import { colors } from '../../theme';
 
+type BillData = typeof BILL;
+
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <View style={styles.row}>
@@ -22,24 +24,26 @@ function Amount({ label, value }: { label: string; value: number }) {
   );
 }
 
-// "All the Bills" карточкасы
-export function BillCard({ code }: { code: string }) {
+// "All the Bills" карточка. bill и feeLabel нужны для электрички и других счетов
+export function BillCard({ code, bill = BILL, feeLabel = 'Internet fee' }: {
+  code: string; bill?: BillData; feeLabel?: string;
+}) {
   return (
     <Card>
       <Text style={styles.title}>All the Bills</Text>
-      <Row label="Name" value={BILL.name} />
-      <Row label="Address" value={BILL.address} />
-      <Row label="Phone number" value={BILL.phone} />
+      <Row label="Name" value={bill.name} />
+      <Row label="Address" value={bill.address} />
+      <Row label="Phone number" value={bill.phone} />
       <Row label="Code" value={`#${code}`} />
-      <Row label="From" value={BILL.from} />
-      <Row label="To" value={BILL.to} />
+      <Row label="From" value={bill.from} />
+      <Row label="To" value={bill.to} />
       <View style={styles.gap} />
-      <Amount label="Internet fee" value={BILL.fee} />
-      <Amount label="Tax" value={BILL.tax} />
+      <Amount label={feeLabel} value={bill.fee} />
+      <Amount label="Tax" value={bill.tax} />
       <View style={styles.divider} />
       <View style={styles.row}>
         <Text style={styles.totalLabel}>TOTAL</Text>
-        <Text style={styles.total}>${BILL.fee + BILL.tax}</Text>
+        <Text style={styles.total}>${bill.fee + bill.tax}</Text>
       </View>
     </Card>
   );
