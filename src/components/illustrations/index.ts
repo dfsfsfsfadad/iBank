@@ -3,3 +3,4 @@ export * from './ExchangeIllustration';
 export * from './TransferIllustration';
 export * from './PaymentIllustration';
 export * from './WithdrawIllustration';
+export * from './PiggyIllustration';

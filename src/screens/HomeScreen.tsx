@@ -28,12 +28,15 @@ export function HomeScreen() {
   };
 
   const onAction = (id: string) => {
-    if (id === 'transfer') navigate('transfer1');
-    else if (id === 'paybill') navigate('paybill1');
-    else if (id === 'details') navigate('carddetail');
-    else if (id === 'withdraw') navigate('withdraw1');
-    else if (id === 'mobile') navigate('mobile1');
-  };
+  if (id === 'transfer') navigate('transfer1');
+  else if (id === 'paybill') navigate('paybill1');
+  else if (id === 'details') navigate('carddetail');
+  else if (id === 'withdraw') navigate('withdraw1');
+  else if (id === 'mobile') navigate('mobile1');
+  else if (id === 'topup') navigate('saveOnline');
+  else if (id === 'credit') navigate('creditCard');
+  else if (id === 'benef') navigate('benefList');
+};
 
   return (
     <View style={styles.root}>

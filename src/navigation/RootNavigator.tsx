@@ -10,6 +10,9 @@ import {
   PayBill1Screen, PayBill2Screen, PayBill3Screen,
   MessageScreen, ChatScreen, SettingScreen, AppInfoScreen, SettingPasswordScreen,
   CardDetailScreen, Withdraw1Screen, Withdraw2Screen, Mobile1Screen, Mobile2Screen,
+  SaveOnline1Screen, SaveAdd1Screen, SaveAdd2Screen, SaveSuccessScreen, SaveManagementScreen,
+  BeneficiaryListScreen, BeneficiaryAdd1Screen, BeneficiaryAdd2Screen, BeneficiaryDetailScreen,
+  CreditCard1Screen, CreditCard2Screen,
 } from '../screens';
 
 export function RootNavigator() {
@@ -50,5 +53,16 @@ export function RootNavigator() {
     case 'withdraw2': return <Withdraw2Screen />;
     case 'mobile1': return <Mobile1Screen />;
     case 'mobile2': return <Mobile2Screen />;
+    case 'saveOnline': return <SaveOnline1Screen />;
+    case 'saveAdd1': return <SaveAdd1Screen />;
+    case 'saveAdd2': return <SaveAdd2Screen />;
+    case 'saveSuccess': return <SaveSuccessScreen />;
+    case 'saveManagement': return <SaveManagementScreen />;
+    case 'benefList': return <BeneficiaryListScreen />;
+    case 'benefAdd1': return <BeneficiaryAdd1Screen />;
+    case 'benefAdd2': return <BeneficiaryAdd2Screen />;
+    case 'benefDetail': return <BeneficiaryDetailScreen />;
+    case 'creditCard': return <CreditCard1Screen />;
+    case 'creditPay': return <CreditCard2Screen />
   }
 }
