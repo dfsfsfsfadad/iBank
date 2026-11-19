@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Field, PrimaryButton, Card } from '../ui';
 import { ExchangeIllustration } from '../illustrations';
-import { CURRENCIES, BASE, exchangeStore, fmt } from '../../data/exchange';
+import { CURRENCIES, BASE, exchangeStore, fmt, loadRates } from '../../data/exchange';
 import { colors, radius } from '../../theme';
 
 export function ExchangeForm({ amount, onAmountChange, onOpenCurrency, onSubmit }: {
@@ -13,6 +13,12 @@ export function ExchangeForm({ amount, onAmountChange, onOpenCurrency, onSubmit 
   onSubmit: () => void;
 }) {
   const [reverse, setReverse] = useState(exchangeStore.reverse);
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    loadRates().then(ok => { if (ok) setTick(t => t + 1); }); // курс келген соң экранды қайта салады
+  }, []);
+
   const cur = CURRENCIES[exchangeStore.currencyIdx];
   const num = parseFloat(amount.replace(',', '.'));
   const valid = Number.isFinite(num) && num > 0;
@@ -58,7 +64,7 @@ export function ExchangeForm({ amount, onAmountChange, onOpenCurrency, onSubmit 
 
         <View style={styles.rateRow}>
           <Text style={styles.rateLabel}>Currency rate</Text>
-          <Text style={styles.rateValue}>1 {cur.code} = {cur.rate} {BASE}</Text>
+          <Text style={styles.rateValue}>1 {cur.code} = {fmt(cur.rate)} {BASE}</Text>
         </View>
 
         <PrimaryButton label="Exchange" active={valid} onPress={onSubmit} />

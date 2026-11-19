@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { ScreenShell } from '../components/layout';
 import { TopBar, Field, Checkbox, PrimaryButton } from '../components/ui';
 import { PhoneIllustration } from '../components/illustrations';
+import { register } from '../data/auth';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
@@ -13,7 +14,20 @@ export function SignUp1Screen() {
   const [pass, setPass] = useState('');
   const [hide, setHide] = useState(true);
   const [agree, setAgree] = useState(false);
-  const active = agree && name.length > 0 && inp.length > 0 && pass.length > 0;
+  const [loading, setLoading] = useState(false);
+  const active = agree && name.length > 0 && inp.length > 0 && pass.length > 0 && !loading;
+
+  const submit = async () => {
+    setLoading(true);
+    try {
+      await register(name.trim(), inp.trim(), pass);
+      navigate('signup2');
+    } catch (e) {
+      Alert.alert('Тіркелу қатесі', e instanceof Error ? e.message : 'Белгісіз қате');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ScreenShell purple>
@@ -23,12 +37,12 @@ export function SignUp1Screen() {
         <Text style={styles.sub}>Hello there, create New account</Text>
         <PhoneIllustration />
         <Field value={name} onChangeText={setName} placeholder="Name" />
-        <Field value={inp} onChangeText={setInp} placeholder="Email" />
+        <Field value={inp} onChangeText={setInp} placeholder="Email" keyboardType="email-address" />
         <Field value={pass} onChangeText={setPass} placeholder="Password" secure={hide} onToggleSecure={() => setHide(v => !v)} />
         <Checkbox checked={agree} onToggle={() => setAgree(v => !v)}>
           By creating an account your aggree to our <Text style={styles.terms}>Term and Conditions</Text>
         </Checkbox>
-        <PrimaryButton label="Sign up" active={active} onPress={() => navigate('signup2')} />
+        <PrimaryButton label={loading ? 'Please wait...' : 'Sign up'} active={active} onPress={submit} />
         <View style={styles.foot}>
           <Text style={styles.footText}>Have an account?  </Text>
           <TouchableOpacity onPress={() => navigate('signin')}><Text style={styles.footLink}>Sign In</Text></TouchableOpacity>

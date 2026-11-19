@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenShell } from '../components/layout';
 import { TopBar, Field, PrimaryButton } from '../components/ui';
 import { LockIllustration } from '../components/illustrations';
+import { login } from '../data/auth';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
 export function SignInScreen() {
   const { navigate } = useNavigation();
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [hide, setHide] = useState(true);
-  const active = login.length > 0 && pass.length > 0;
+  const [loading, setLoading] = useState(false);
+  const active = email.length > 0 && pass.length > 0 && !loading;
+
+  const submit = async () => {
+    setLoading(true);
+    try {
+      await login(email.trim(), pass);
+      navigate('home');
+    } catch (e) {
+      Alert.alert('Кіру қатесі', e instanceof Error ? e.message : 'Белгісіз қате');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ScreenShell purple>
@@ -21,12 +35,12 @@ export function SignInScreen() {
         <Text style={styles.title}>Welcome Back</Text>
         <Text style={styles.sub}>Hello there, sign in to continue</Text>
         <LockIllustration />
-        <Field value={login} onChangeText={setLogin} placeholder="Login" />
+        <Field value={email} onChangeText={setEmail} placeholder="Email" keyboardType="email-address" />
         <Field value={pass} onChangeText={setPass} placeholder="Password" secure={hide} onToggleSecure={() => setHide(v => !v)} />
         <TouchableOpacity style={styles.linkRight} onPress={() => navigate('forgot1')}>
           <Text style={styles.link}>Forgot your password ?</Text>
         </TouchableOpacity>
-        <PrimaryButton label="Sign In" active={active} onPress={() => navigate('home')} />
+        <PrimaryButton label={loading ? 'Please wait...' : 'Sign In'} active={active} onPress={submit} />
         <View style={styles.bio}><Ionicons name="finger-print" size={52} color={colors.primary} /></View>
         <View style={styles.foot}>
           <Text style={styles.footText}>Don't have an account?  </Text>
