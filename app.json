@@ -5,6 +5,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "splash": { "backgroundColor": "#4F33E8" }
+    "splash": { "backgroundColor": "#4F33E8" },
+    "plugins": [
+      ["expo-location", { "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to show nearby bank branches." }]
+    ]
   }
 }

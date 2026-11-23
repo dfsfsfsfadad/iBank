@@ -23,7 +23,7 @@ export function BiometricVerify({ kind, verified, onPress }: {
   return (
     <View style={styles.wrap}>
       <Text style={styles.label}>
-        {face ? 'Use Face ID to verify transaction' : 'Get OTP to verify transaction'}
+        {face ? 'Use Face ID to verify transaction' : 'Use Touch ID to verify transaction'}
       </Text>
       <TouchableOpacity style={styles.btn} onPress={onPress} activeOpacity={0.7} hitSlop={12}>
         {face ? <FaceIcon color={tint} /> : <Ionicons name="finger-print" size={64} color={tint} />}
@@ -32,7 +32,7 @@ export function BiometricVerify({ kind, verified, onPress }: {
   );
 }
 
-// Touch ID терезесі (макет). Нақты биометрия үшін: npx expo install expo-local-authentication
+// Touch ID терезесі (макет). Тек __DEV__ кезінде саусақ ізі жоқ эмуляторда fallback ретінде қолданылады
 export function TouchIdDialog({ visible, onSuccess, onCancel }: {
   visible: boolean; onSuccess: () => void; onCancel: () => void;
 }) {

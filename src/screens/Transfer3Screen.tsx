@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Alert, StyleSheet } from 'react-native';
 import { ScreenShell } from '../components/layout';
 import { TopBar, PrimaryButton, ReadField, OtpRow } from '../components/ui';
 import { BiometricVerify, TouchIdDialog } from '../components/transfer/BiometricVerify';
 import { ACCOUNTS, transferStore } from '../components/transfer/TransferForm';
+import { authenticateTouchId, isTouchIdAvailable } from '../data/biometric';
 import { useNavigation } from '../navigation/NavigationContext';
 import { colors } from '../theme';
 
@@ -22,6 +23,16 @@ export function Transfer3Screen() {
 
   const from = v.acc === null ? '' : `**** **** ${ACCOUNTS[v.acc].label.slice(-4)}`;
   const ready = otpMode ? otp.length > 0 : verified;
+
+  const onTouchId = async () => {
+    if (!(await isTouchIdAvailable())) {
+      if (__DEV__) return setDialog(true); // эмулятор: ескі макет терезесі
+      return Alert.alert('Touch ID unavailable', 'Add a fingerprint in your device settings.');
+    }
+    const r = await authenticateTouchId('Confirm transaction');
+    if (r.ok) setVerified(true);
+    else if (r.error !== 'user_cancel') Alert.alert('Authentication failed', 'Please try again.');
+  };
 
   return (
     <ScreenShell
@@ -48,7 +59,7 @@ export function Transfer3Screen() {
             <OtpRow value={otp} onChangeText={setOtp} canRequest onRequest={() => setOtp('23798')} />
           </View>
         ) : (
-          <BiometricVerify kind="touch" verified={verified} onPress={() => setDialog(true)} />
+          <BiometricVerify kind="touch" verified={verified} onPress={onTouchId} />
         )}
       </View>
       <TouchIdDialog
